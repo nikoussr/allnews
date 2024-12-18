@@ -1,4 +1,8 @@
 TOKEN = '8152888828:AAG4WDPnCte_P8w5UciyWQH3e4g9Zm1oWz4'
+NEWS_API_KEY = "305438ee7aa947f3a97f456cf0ed2dda"         # Заменить на ключ от NewsAPI.org
+LLAMA_MODEL_PATH = "models/llama-2-7b-langchain-chat-Q4_K_M.gguf"
+
+
 """themes = {
     "world": "В мире 🌍",
     "politics": "Политика 🏛️",

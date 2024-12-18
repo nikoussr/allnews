@@ -10,7 +10,7 @@ import keyboards.keyboard
 from states.states import States
 from database.db import set_themes, get_themes, del_theme, user_exists, create_new_user, change_active
 from keyboards.keyboard import all_themes, exit_btn
-from main import db
+from main import db, fetch_and_send_news
 from main import bot
 
 router = Router()
@@ -179,6 +179,10 @@ async def command_suggest(message: Message, state: FSMContext):
         "Здравствуйте! Если у вас есть какие-либо вопросы, предложения или Вы нашли баги, пожалуйста, напишите мне.\nЯ всегда готов помочь и выслушать Ваше мнение. Спасибо!",
         reply_markup=exit_btn)
     await state.set_state(States.wait_for_suggest)
+
+@router.message(Command('news'))
+async def news(message: Message):
+    await fetch_and_send_news(message.chat.id)
 
 
 @router.message(States.wait_for_suggest)
