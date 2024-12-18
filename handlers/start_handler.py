@@ -25,6 +25,7 @@ async def command_start(message: Message, state: FSMContext):
     except TelegramBadRequest:
         pass
 
+    # если пользователь новый
     if not (await user_exists(db, user_id)):
         a = message.date
         b = str(a.date()) + " " + str(a.time())
@@ -36,6 +37,7 @@ async def command_start(message: Message, state: FSMContext):
             f"Давайте добавим новые темы в Вашу ленту новостей! Нажимайте на кнопку, если вас это интересует.\nЕсли вы выбрали свои темы, то нажмите 'Продолжить'",
             reply_markup=keyboards.keyboard.all_themes(configs.themes, 'continue'))
         await state.set_state(States.wait_for_themes)
+    # если пользователь старый
     else:
         await message.answer(f"Привет, как дела? Тут скоро будет отвечать нейросеть, если ты уже проходил этот этап")
 
@@ -124,8 +126,6 @@ async def command_add(message: Message, state: FSMContext):
         # Извлекаем текущие темы пользователя
         user_themes = await db.fetch('SELECT theme FROM themes WHERE user_id = $1', user_id)
         user_themes_set = {record['theme'] for record in user_themes}
-        print(user_themes_set)
-
         # Получаем все доступные темы из вашего модуля с темами
         all_themes = set(configs.themes)  # configs.themes теперь массив
         # Определяем темы, которых нет у пользователя

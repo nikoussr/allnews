@@ -15,7 +15,11 @@ class Database:
 
     async def connect(self, database_url):
         if not hasattr(self, 'connection'):
-            self.connection = await asyncpg.connect(database_url)
+            try:
+                self.connection = await asyncpg.connect(database_url)
+                print(f"Connected successfuly to allnews DB")
+            except Exception as e:
+                print(e)
 
     async def disconnect(self):
         if hasattr(self, 'connection'):

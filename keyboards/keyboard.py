@@ -2,19 +2,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 import configs
 
-"""Клавиатура для подтверждения"""
-y_n_btns = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Да', callback_data='yes'),
-     InlineKeyboardButton(text='Нет, я ошибся', callback_data='no')]
-])
-
-themes_btns = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Экономика', callback_data='Экономика'),
-     InlineKeyboardButton(text='Новости ТПУ', callback_data='Новости ТПУ')]
-]
-
-)
-
+exit_btn = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='⏪ Выйти', callback_data='exit')]
+                                                 ])
 
 
 def all_themes(themes, state):
@@ -36,13 +25,7 @@ def all_themes(themes, state):
     return InlineKeyboardMarkup(inline_keyboard=all_themes)
 
 
-exit_btn = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='⏪ Выйти', callback_data='exit')]
-                                                 ])
-
-
-
 def update_themes_btn_generator(state, themes_to_del):
-    # Фильтруем темы, удаляя те, которые есть в themes_to_del
     themes = [theme for theme in configs.themes if theme not in themes_to_del]
 
     all_themes = []
@@ -67,5 +50,4 @@ def update_themes_btn_generator(state, themes_to_del):
         all_themes.append([InlineKeyboardButton(text='⏪ Выйти', callback_data='exit')])
     elif state == 'continue':
         all_themes.append([InlineKeyboardButton(text='Продолжить ⏭', callback_data='continue')])
-    print(all_themes)
     return InlineKeyboardMarkup(inline_keyboard=all_themes)
