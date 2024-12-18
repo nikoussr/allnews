@@ -20,3 +20,4 @@ async def collect_and_process_news():
 
 # scheduler = AsyncIOScheduler()
 # scheduler.add_job(collect_and_process_news, "cron", hour="8,20")
+#
